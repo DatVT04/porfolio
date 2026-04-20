@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head><script src="https://cdn.tailwindcss.com"></script><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&amp;family=Playfair+Display:wght@700;800&amp;display=swap"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Vũ Tiến Đạt - Portfolio</title><style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: #0a0e1a; color: #e2e8f0; overflow-x: hidden; }
+  
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #0a0e1a; }
+  ::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 3px; }
+
+  /* Animations */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeInLeft {
+    from { opacity: 0; transform: translateX(-40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes fadeInRight {
+    from { opacity: 0; transform: translateX(40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+  }
+  @keyframes pulse-glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(59,130,246,0.3); }
+    50% { box-shadow: 0 0 40px rgba(59,130,246,0.7), 0 0 80px rgba(139,92,246,0.3); }
+  }
+  @keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  @keyframes typewriter {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+  @keyframes blink {
+    0%, 100% { border-color: transparent; }
+    50% { border-color: #3b82f6; }
+  }
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  @keyframes particle {
+    0% { transform: translateY(0) translateX(0) scale(1); opacity: 1; }
+    100% { transform: translateY(-120px) translateX(var(--x)) scale(0); opacity: 0; }
+  }
+
+  .animate-fadeInUp { animation: fadeInUp 0.8s ease forwards; }
+  .animate-fadeInLeft { animation: fadeInLeft 0.8s ease forwards; }
+  .animate-fadeInRight { animation: fadeInRight 0.8s ease forwards; }
+  .animate-float { animation: float 3s ease-in-out infinite; }
+  .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6, #06b6d4);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradient-shift 4s ease infinite;
+  }
+
+  /* Glass card */
+  .glass-card {
+    background: rgba(255,255,255,0.03);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: all 0.3s ease;
+  }
+  .glass-card:hover {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(59,130,246,0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(59,130,246,0.15);
+  }
+
+  /* Skill bar */
+  .skill-bar { background: rgba(255,255,255,0.08); border-radius: 999px; height: 8px; overflow: hidden; }
+  .skill-fill { 
+    height: 100%; border-radius: 999px; 
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+    transform-origin: left;
+    animation: fillBar 1.5s ease forwards;
+    transform: scaleX(0);
+  }
+  @keyframes fillBar { to { transform: scaleX(1); } }
+
+  /* Nav */
+  nav { 
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,14,26,0.85); backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    transition: all 0.3s;
+  }
+  .nav-link {
+    color: #94a3b8; text-decoration: none; font-size: 0.875rem; font-weight: 500;
+    padding: 8px 16px; border-radius: 8px; transition: all 0.2s;
+    position: relative;
+  }
+  .nav-link:hover { color: #fff; background: rgba(59,130,246,0.15); }
+
+  /* Section */
+  section { padding: 100px 0; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.2em;
+    text-transform: uppercase; color: #3b82f6;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::before, .section-label::after {
+    content: ''; flex: 1; max-width: 40px; height: 1px; background: #3b82f6; opacity: 0.5;
+  }
+  .section-label::before { max-width: 0; }
+
+  /* Hero particle bg */
+  .hero-bg {
+    position: absolute; inset: 0; overflow: hidden;
+    background: radial-gradient(ellipse at 20% 50%, rgba(59,130,246,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(139,92,246,0.08) 0%, transparent 60%);
+  }
+  .dot-grid {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* Project card */
+  .project-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px; overflow: hidden;
+    transition: all 0.4s ease;
+    position: relative;
+  }
+  .project-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(59,130,246,0.05), rgba(139,92,246,0.05));
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .project-card:hover { transform: translateY(-8px); border-color: rgba(59,130,246,0.3); box-shadow: 0 30px 60px rgba(0,0,0,0.3); }
+  .project-card:hover::before { opacity: 1; }
+
+  /* Tag */
+  .tech-tag {
+    display: inline-flex; align-items: center;
+    padding: 4px 12px; border-radius: 999px; font-size: 0.75rem; font-weight: 500;
+    background: rgba(59,130,246,0.12); color: #93c5fd;
+    border: 1px solid rgba(59,130,246,0.2);
+  }
+
+  /* Timeline */
+  .timeline-line {
+    position: absolute; left: 18px; top: 30px; bottom: 0;
+    width: 2px; background: linear-gradient(to bottom, #3b82f6, rgba(59,130,246,0.1));
+  }
+  .timeline-dot {
+    width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; box-shadow: 0 0 20px rgba(59,130,246,0.4);
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  /* Contact */
+  .contact-link {
+    display: flex; align-items: center; gap: 12px; padding: 16px 20px;
+    background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; text-decoration: none; color: #cbd5e1;
+    transition: all 0.3s; font-size: 0.9rem;
+  }
+  .contact-link:hover { background: rgba(59,130,246,0.1); border-color: rgba(59,130,246,0.4); color: #fff; transform: translateX(6px); }
+  .contact-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+
+  /* Avatar ring */
+  .avatar-ring {
+    width: 220px; height: 220px; border-radius: 50%;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6, #06b6d4);
+    padding: 3px; animation: spin-slow 8s linear infinite;
+    flex-shrink: 0;
+  }
+  .avatar-inner {
+    width: 100%; height: 100%; border-radius: 50%;
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 5rem; border: 3px solid #0a0e1a;
+  }
+
+  /* Intersection observer classes */
+  .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-left { opacity: 0; transform: translateX(-30px); transition: all 0.7s ease; }
+  .reveal-left.visible { opacity: 1; transform: translateX(0); }
+  .reveal-right { opacity: 0; transform: translateX(30px); transition: all 0.7s ease; }
+  .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+  /* Responsive */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  @media (max-width: 768px) {
+    .hero-grid { flex-direction: column-reverse; text-align: center; }
+    .avatar-ring { width: 160px; height: 160px; }
+    .avatar-inner { font-size: 3.5rem; }
+  }
+</style><style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.container{width:100%}@media (min-width: 640px){.container{max-width:640px}}@media (min-width: 768px){.container{max-width:768px}}@media (min-width: 1024px){.container{max-width:1024px}}@media (min-width: 1280px){.container{max-width:1280px}}@media (min-width: 1536px){.container{max-width:1536px}}.visible{visibility:visible}</style></head>
+  <body>
+<!-- NAV -->
+<nav>
+  <div class="container" style="display:flex;align-items:center;justify-content:space-between;padding-top:14px;padding-bottom:14px;">
+    <div style="font-weight:800;font-size:1.1rem;letter-spacing:-0.02em;">
+      <span class="gradient-text">VTĐ</span>
+      <span style="color:#475569;font-size:0.75rem;margin-left:10px;font-weight:400;">Portfolio</span>
+    </div>
+    <div style="display:flex;gap:4px;flex-wrap:wrap;">
+      <a href="#about" class="nav-link">Giới thiệu</a>
+      <a href="#skills" class="nav-link">Kỹ năng</a>
+      <a href="#projects" class="nav-link">Dự án</a>
+      <a href="#education" class="nav-link">Học vấn</a>
+      <a href="#certs" class="nav-link">Chứng chỉ</a>
+      <a href="#contact" class="nav-link">Liên hệ</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero" style="min-height:100vh;display:flex;align-items:center;position:relative;padding-top:80px;">
+  <div class="hero-bg"><div class="dot-grid"></div></div>
+  <div class="container" style="position:relative;z-index:1;">
+    <div class="hero-grid" style="display:flex;align-items:center;justify-content:space-between;gap:60px;">
+      <div style="flex: 1 1 0%; opacity: 1; transform: none;" class="animate-fadeInLeft">
+        <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.25);border-radius:999px;font-size:0.8rem;color:#93c5fd;margin-bottom:28px;">
+          <span style="width:8px;height:8px;border-radius:50%;background:#22c55e;animation:pulse-glow 1.5s infinite;"></span>
+          Sinh viên CNTT · FPT University
+        </div>
+        <h1 style="font-size:clamp(2.5rem,5vw,4rem);font-weight:900;line-height:1.1;margin-bottom:20px;letter-spacing:-0.03em;">
+          Vũ Tiến Đạt
+        </h1>
+        <h2 style="font-size:clamp(1.2rem,2.5vw,1.6rem);font-weight:600;margin-bottom:20px;">
+          <span class="gradient-text">Full-Stack Developer</span>
+          <span style="color:#475569;"> &amp; </span>
+          <span style="color:#94a3b8;">App Builder</span>
+        </h2>
+        <p style="color:#64748b;font-size:1rem;line-height:1.8;max-width:520px;margin-bottom:40px;">
+          Sinh viên CNTT tại <strong style="color:#93c5fd;">ĐH FPT Hà Nội</strong> (GPA 3.2), 
+          đam mê xây dựng các sản phẩm Web &amp; Mobile. Có kinh nghiệm thực chiến với 
+          <strong style="color:#c4b5fd;">Java, Flutter, React, Spring Boot</strong> và tích hợp AI.
+        </p>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;">
+          <a href="#projects" style="display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: linear-gradient(135deg, rgb(59, 130, 246), rgb(139, 92, 246)); border-radius: 12px; color: rgb(255, 255, 255); text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: 0.3s; box-shadow: rgba(59, 130, 246, 0.3) 0px 8px 25px; transform: translateY(0px);" onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 12px 35px rgba(59,130,246,0.5)';" onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 8px 25px rgba(59,130,246,0.3)';">
+            🚀 Xem dự án
+          </a>
+          <a href="#contact" style="display: inline-flex; align-items: center; gap: 8px; padding: 14px 28px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; color: rgb(226, 232, 240); text-decoration: none; font-weight: 600; font-size: 0.95rem; transition: 0.3s;" onmouseover="this.style.background='rgba(255,255,255,0.1)';" onmouseout="this.style.background='rgba(255,255,255,0.05)';">
+            📩 Liên hệ
+          </a>
+        </div>
+        <!-- Stats -->
+        <div style="display:flex;gap:32px;margin-top:50px;flex-wrap:wrap;">
+          <div>
+            <div style="font-size:1.8rem;font-weight:800;" class="gradient-text">4+</div>
+            <div style="color:#64748b;font-size:0.8rem;margin-top:2px;">Dự án thực tế</div>
+          </div>
+          <div style="width:1px;background:rgba(255,255,255,0.08);"></div>
+          <div>
+            <div style="font-size:1.8rem;font-weight:800;" class="gradient-text">6</div>
+            <div style="color:#64748b;font-size:0.8rem;margin-top:2px;">Chứng chỉ Coursera</div>
+          </div>
+          <div style="width:1px;background:rgba(255,255,255,0.08);"></div>
+          <div>
+            <div style="font-size:1.8rem;font-weight:800;" class="gradient-text">3.2</div>
+            <div style="color:#64748b;font-size:0.8rem;margin-top:2px;">GPA / 4.0</div>
+          </div>
+          <div style="width:1px;background:rgba(255,255,255,0.08);"></div>
+          <div>
+            <div style="font-size:1.8rem;font-weight:800;" class="gradient-text">2</div>
+            <div style="color:#64748b;font-size:0.8rem;margin-top:2px;">Ngoại ngữ</div>
+          </div>
+        </div>
+      </div>
+      <!-- Avatar -->
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 20px; opacity: 1; transform: none;" class="animate-fadeInRight">
+        <div class="avatar-ring animate-float" style="animation: float 3s ease-in-out infinite, spin-slow 10s linear infinite;">
+          <div class="avatar-inner" style="animation:none;">👨‍💻</div>
+        </div>
+        <!-- Social quick links -->
+        <div style="display:flex;gap:12px;">
+          <a href="https://github.com/DatVT04" target="_blank" style="width: 44px; height: 44px; border-radius: 12px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.2rem; transition: 0.3s;" onmouseover="this.style.background='rgba(59,130,246,0.2)';this.style.borderColor='rgba(59,130,246,0.5)';" onmouseout="this.style.background='rgba(255,255,255,0.05)';this.style.borderColor='rgba(255,255,255,0.1)';">🐙</a>
+          <a href="https://www.facebook.com/vutiendat04/" target="_blank" style="width: 44px; height: 44px; border-radius: 12px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.2rem; transition: 0.3s;" onmouseover="this.style.background='rgba(59,130,246,0.2)';this.style.borderColor='rgba(59,130,246,0.5)';" onmouseout="this.style.background='rgba(255,255,255,0.05)';this.style.borderColor='rgba(255,255,255,0.1)';">📘</a>
+          <a href="mailto:vtdat271204@gmail.com" style="width: 44px; height: 44px; border-radius: 12px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 1.2rem; transition: 0.3s;" onmouseover="this.style.background='rgba(59,130,246,0.2)';this.style.borderColor='rgba(59,130,246,0.5)';" onmouseout="this.style.background='rgba(255,255,255,0.05)';this.style.borderColor='rgba(255,255,255,0.1)';">✉️</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Scroll hint -->
+  <div style="position:absolute;bottom:30px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:#475569;font-size:0.75rem;animation:float 2s ease-in-out infinite;">
+    <span>Cuộn xuống</span>
+    <span>▼</span>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" style="background:rgba(255,255,255,0.01);">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 60px; transition-delay: 0s;" class="reveal visible">
+      <div class="section-label" style="justify-content:center;margin-bottom:14px;">Giới thiệu</div>
+      <h2 style="font-size:clamp(1.8rem,3vw,2.8rem);font-weight:800;">Về <span class="gradient-text">bản thân tôi</span></h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;">
+      <!-- Mục tiêu -->
+      <div class="glass-card reveal visible" style="border-radius: 16px; padding: 28px; grid-column: 1 / -1; transition-delay: 0.1s;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
+          <span style="font-size:1.5rem;">🎯</span>
+          <h3 style="font-weight:700;font-size:1.1rem;">Mục tiêu nghề nghiệp</h3>
+        </div>
+        <p style="color:#94a3b8;line-height:1.8;font-size:0.95rem;">
+          Với những kiến thức đã được trang bị tại <strong style="color:#93c5fd;">ĐH FPT Hà Nội</strong>, tôi mong muốn ứng tuyển vị trí <strong style="color:#c4b5fd;">Intern</strong> tại các công ty công nghệ để áp dụng kinh nghiệm lập trình thực tế, đồng thời học hỏi thêm từ môi trường chuyên nghiệp. Tôi đặc biệt quan tâm đến lĩnh vực <strong style="color:#67e8f9;">phát triển ứng dụng Web &amp; Mobile</strong> và <strong style="color:#67e8f9;">hệ thống ERP/SAP</strong>.
+        </p>
+      </div>
+      <!-- Thông tin cá nhân -->
+      <div class="glass-card reveal visible" style="border-radius: 16px; padding: 28px; transition-delay: 0.2s;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+          <span style="font-size:1.5rem;">👤</span>
+          <h3 style="font-weight:700;font-size:1.1rem;">Thông tin</h3>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div style="display:flex;align-items:center;gap:12px;color:#94a3b8;font-size:0.9rem;">
+            <span style="width:32px;height:32px;border-radius:8px;background:rgba(59,130,246,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;">📍</span>
+            <span>Hà Nội, Việt Nam</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;color:#94a3b8;font-size:0.9rem;">
+            <span style="width:32px;height:32px;border-radius:8px;background:rgba(59,130,246,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;">📞</span>
+            <span>0379 213 484</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;color:#94a3b8;font-size:0.9rem;">
+            <span style="width:32px;height:32px;border-radius:8px;background:rgba(59,130,246,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;">✉️</span>
+            <span style="word-break:break-all;">vtdat271204@gmail.com</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;color:#94a3b8;font-size:0.9rem;">
+            <span style="width:32px;height:32px;border-radius:8px;background:rgba(59,130,246,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;">🏫</span>
+            <span>ĐH FPT Hà Nội (2022–2025)</span>
+          </div>
+        </div>
+      </div>
+      <!-- Sở thích -->
+      <div class="glass-card reveal visible" style="border-radius: 16px; padding: 28px; transition-delay: 0.3s;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+          <span style="font-size:1.5rem;">🎮</span>
+          <h3 style="font-weight:700;font-size:1.1rem;">Sở thích</h3>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;">
+          <span style="padding:8px 16px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.2);border-radius:999px;color:#fca5a5;font-size:0.85rem;">⚽ Đá bóng</span>
+          <span style="padding:8px 16px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.2);border-radius:999px;color:#fcd34d;font-size:0.85rem;">♟️ Chơi cờ vua</span>
+          <span style="padding:8px 16px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);border-radius:999px;color:#6ee7b7;font-size:0.85rem;">📚 Đọc sách</span>
+          <span style="padding:8px 16px;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);border-radius:999px;color:#93c5fd;font-size:0.85rem;">🔬 Khám phá công nghệ</span>
+        </div>
+      </div>
+      <!-- Ngoại ngữ -->
+      <div class="glass-card reveal visible" style="border-radius: 16px; padding: 28px; transition-delay: 0s;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+          <span style="font-size:1.5rem;">🌍</span>
+          <h3 style="font-weight:700;font-size:1.1rem;">Ngoại ngữ</h3>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <div style="display:flex;align-items:center;gap:8px;"><span>🇬🇧</span><span style="font-weight:600;font-size:0.9rem;">Tiếng Anh</span></div>
+              <span style="font-size:0.8rem;color:#93c5fd;background:rgba(59,130,246,0.1);padding:3px 10px;border-radius:999px;">TOEIC 650</span>
+            </div>
+            <div class="skill-bar"><div class="skill-fill" style="width:65%;animation-delay:0.5s;"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <div style="display:flex;align-items:center;gap:8px;"><span>🇯🇵</span><span style="font-weight:600;font-size:0.9rem;">Tiếng Nhật</span></div>
+              <span style="font-size:0.8rem;color:#c4b5fd;background:rgba(139,92,246,0.1);padding:3px 10px;border-radius:999px;">JLPT N4</span>
+            </div>
+            <div class="skill-bar"><div class="skill-fill" style="width:45%;animation-delay:0.7s;background:linear-gradient(90deg,#8b5cf6,#ec4899);"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 60px; transition-delay: 0.1s;" class="reveal visible">
+      <div class="section-label" style="justify-content:center;margin-bottom:14px;">Năng lực</div>
+      <h2 style="font-size:clamp(1.8rem,3vw,2.8rem);font-weight:800;">Kỹ năng <span class="gradient-text">chuyên môn</span></h2>
+    </div>
+    
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:32px;">
+      <!-- Technical Skills -->
+      <div class="reveal-left visible">
+        <h3 style="font-weight:700;font-size:1rem;color:#94a3b8;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:24px;display:flex;align-items:center;gap:8px;">
+          <span style="width:24px;height:2px;background:linear-gradient(90deg,#3b82f6,#8b5cf6);border-radius:999px;"></span>
+          Lập trình &amp; Công nghệ
+        </h3>
+        <div style="display:flex;flex-direction:column;gap:16px;">
+          
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <span style="font-weight:600;font-size:0.9rem;">Java</span>
+                <span style="font-size:0.8rem;color:#64748b;">80%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-fill" style="width:80%;background:linear-gradient(90deg,#f59e0b,#f59e0b99);"></div>
+              </div>
+            </div>
+          
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <span style="font-weight:600;font-size:0.9rem;">Flutter / Dart</span>
+                <span style="font-size:0.8rem;color:#64748b;">75%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-fill" style="width:75%;background:linear-gradient(90deg,#06b6d4,#06b6d499);"></div>
+              </div>
+            </div>
+          
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <span style="font-weight:600;font-size:0.9rem;">HTML / CSS / JavaScript</span>
+                <span style="font-size:0.8rem;color:#64748b;">85%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-fill" style="width:85%;background:linear-gradient(90deg,#f97316,#f9731699);"></div>
+              </div>
+            </div>
+          
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <span style="font-weight:600;font-size:0.9rem;">Spring Boot</span>
+                <span style="font-size:0.8rem;color:#64748b;">65%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-fill" style="width:65%;background:linear-gradient(90deg,#22c55e,#22c55e99);"></div>
+              </div>
+            </div>
+          
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <span style="font-weight:600;font-size:0.9rem;">SQL / PostgreSQL</span>
+                <span style="font-size:0.8rem;color:#64748b;">70%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-fill" style="width:70%;background:linear-gradient(90deg,#3b82f6,#3b82f699);"></div>
+              </div>
+            </div>
+          
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <span style="font-weight:600;font-size:0.9rem;">SAP ABAP</span>
+                <span style="font-size:0.8rem;color:#64748b;">55%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-fill" style="width:55%;background:linear-gradient(90deg,#8b5cf6,#8b5cf699);"></div>
+              </div>
+            </div>
+          
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <span style="font-weight:600;font-size:0.9rem;">Git / GitHub</span>
+                <span style="font-size:0.8rem;color:#64748b;">75%</span>
+              </div>
+              <div class="skill-bar">
+                <div class="skill-fill" style="width:75%;background:linear-gradient(90deg,#ec4899,#ec489999);"></div>
+              </div>
+            </div>
+          
+        </div>
+      </div>
+
+      <!-- Right column -->
+      <div style="display:flex;flex-direction:column;gap:24px;" class="reveal-right visible">
+        <!-- Soft Skills -->
+        <div>
+          <h3 style="font-weight:700;font-size:1rem;color:#94a3b8;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:20px;display:flex;align-items:center;gap:8px;">
+            <span style="width:24px;height:2px;background:linear-gradient(90deg,#8b5cf6,#ec4899);border-radius:999px;"></span>
+            Kỹ năng mềm
+          </h3>
+          <div style="display:flex;flex-wrap:wrap;gap:10px;">
+            
+              <span class="tech-tag" style="background:rgba(139,92,246,0.1);color:#c4b5fd;border-color:rgba(139,92,246,0.25);">🎤 Thuyết trình</span>
+            
+              <span class="tech-tag" style="background:rgba(139,92,246,0.1);color:#c4b5fd;border-color:rgba(139,92,246,0.25);">🧩 Giải quyết vấn đề</span>
+            
+              <span class="tech-tag" style="background:rgba(139,92,246,0.1);color:#c4b5fd;border-color:rgba(139,92,246,0.25);">📚 Tự học</span>
+            
+              <span class="tech-tag" style="background:rgba(139,92,246,0.1);color:#c4b5fd;border-color:rgba(139,92,246,0.25);">💬 Giao tiếp</span>
+            
+              <span class="tech-tag" style="background:rgba(139,92,246,0.1);color:#c4b5fd;border-color:rgba(139,92,246,0.25);">👥 Làm việc nhóm</span>
+            
+              <span class="tech-tag" style="background:rgba(139,92,246,0.1);color:#c4b5fd;border-color:rgba(139,92,246,0.25);">📋 Quản lý dự án</span>
+            
+          </div>
+        </div>
+
+        <!-- SAP Knowledge -->
+        <div class="glass-card" style="border-radius:16px;padding:24px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+            <span style="font-size:1.3rem;">🏢</span>
+            <h4 style="font-weight:700;font-size:0.95rem;">SAP ERP Knowledge</h4>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            
+              <span style="padding:5px 12px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:8px;color:#fcd34d;font-size:0.8rem;font-weight:600;">SD</span>
+            
+              <span style="padding:5px 12px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:8px;color:#fcd34d;font-size:0.8rem;font-weight:600;">MM</span>
+            
+              <span style="padding:5px 12px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:8px;color:#fcd34d;font-size:0.8rem;font-weight:600;">PP</span>
+            
+              <span style="padding:5px 12px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:8px;color:#fcd34d;font-size:0.8rem;font-weight:600;">CO</span>
+            
+              <span style="padding:5px 12px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:8px;color:#fcd34d;font-size:0.8rem;font-weight:600;">FI</span>
+            
+              <span style="padding:5px 12px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:8px;color:#fcd34d;font-size:0.8rem;font-weight:600;">WM</span>
+            
+              <span style="padding:5px 12px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:8px;color:#fcd34d;font-size:0.8rem;font-weight:600;">ABAP</span>
+            
+              <span style="padding:5px 12px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:8px;color:#fcd34d;font-size:0.8rem;font-weight:600;">SAP GUI</span>
+            
+              <span style="padding:5px 12px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:8px;color:#fcd34d;font-size:0.8rem;font-weight:600;">SAP Fiori</span>
+            
+          </div>
+          <p style="color:#64748b;font-size:0.8rem;margin-top:14px;line-height:1.6;">Tham gia khóa học SAP ABAP tại FPT Software Academy (T7–T9/2025)</p>
+        </div>
+
+        <!-- Tech stack icons -->
+        <div class="glass-card" style="border-radius:16px;padding:24px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+            <span style="font-size:1.3rem;">🛠️</span>
+            <h4 style="font-weight:700;font-size:0.95rem;">Công nghệ đã dùng</h4>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            
+              <span class="tech-tag">Java</span>
+            
+              <span class="tech-tag">Flutter</span>
+            
+              <span class="tech-tag">Spring Boot</span>
+            
+              <span class="tech-tag">REST API</span>
+            
+              <span class="tech-tag">Firebase Auth</span>
+            
+              <span class="tech-tag">Gemini AI</span>
+            
+              <span class="tech-tag">VNPay API</span>
+            
+              <span class="tech-tag">Google Maps API</span>
+            
+              <span class="tech-tag">PostgreSQL</span>
+            
+              <span class="tech-tag">HTML/CSS/JS</span>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" style="background:rgba(255,255,255,0.01);">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 60px; transition-delay: 0.2s;" class="reveal visible">
+      <div class="section-label" style="justify-content:center;margin-bottom:14px;">Portfolio</div>
+      <h2 style="font-size:clamp(1.8rem,3vw,2.8rem);font-weight:800;">Dự án <span class="gradient-text">thực tế</span></h2>
+      <p style="color:#64748b;margin-top:14px;font-size:0.95rem;">Các sản phẩm đã hoàn thành trong quá trình học tập và nghiên cứu</p>
+    </div>
+    
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;">
+    
+      <!-- Project 1: Moc Dang -->
+      <div class="project-card reveal visible" style="padding: 28px; transition-delay: 0.3s;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;">
+          <div style="width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,rgba(245,158,11,0.2),rgba(239,68,68,0.2));border:1px solid rgba(245,158,11,0.3);display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🏮</div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span style="padding:4px 10px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.25);border-radius:999px;color:#86efac;font-size:0.75rem;font-weight:600;">Leader</span>
+            <span style="padding:4px 10px;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.25);border-radius:999px;color:#93c5fd;font-size:0.75rem;">2025–2026</span>
+          </div>
+        </div>
+        <h3 style="font-weight:700;font-size:1.1rem;margin-bottom:10px;">Website Bán Đèn Truyền Thống</h3>
+        <p style="color:#64748b;font-size:0.875rem;line-height:1.7;margin-bottom:18px;">
+          Nền tảng thương mại điện tử chuyên bán đèn truyền thống, tích hợp bản đồ Google Maps, cổng thanh toán VNPay và AI Chat Bot hỗ trợ khách hàng.
+        </p>
+        <div style="display:flex;align-items:center;gap:8px;color:#64748b;font-size:0.8rem;margin-bottom:16px;">
+          <span>👥</span><span>3 thành viên</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px;">
+          <span class="tech-tag">HTML/CSS/JS</span><span class="tech-tag">Java</span><span class="tech-tag">Google Maps API</span><span class="tech-tag">VNPay</span><span class="tech-tag">AI ChatBot</span>
+        </div>
+        <a href="https://mocdang.com" target="_blank" style="display:inline-flex;align-items:center;gap:8px;color:#93c5fd;font-size:0.875rem;text-decoration:none;font-weight:500;padding:8px 16px;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);border-radius:8px;transition:all 0.3s;" onmouseover="this.style.background='rgba(59,130,246,0.2)'" onmouseout="this.style.background='rgba(59,130,246,0.1)'">🌐 mocdang.com <span>→</span></a>
+      </div>
+
+      <!-- Project 2: Finance App -->
+      <div class="project-card reveal visible" style="padding: 28px; animation-delay: 0.1s; transition-delay: 0s;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;">
+          <div style="width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,rgba(59,130,246,0.2),rgba(6,182,212,0.2));border:1px solid rgba(59,130,246,0.3);display:flex;align-items:center;justify-content:center;font-size:1.5rem;">💰</div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span style="padding:4px 10px;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.25);border-radius:999px;color:#c4b5fd;font-size:0.75rem;font-weight:600;">Member</span>
+            <span style="padding:4px 10px;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.25);border-radius:999px;color:#93c5fd;font-size:0.75rem;">2026</span>
+          </div>
+        </div>
+        <h3 style="font-weight:700;font-size:1.1rem;margin-bottom:10px;">App Quản Lý Tài Chính Thông Minh</h3>
+        <p style="color:#64748b;font-size:0.875rem;line-height:1.7;margin-bottom:18px;">
+          Mobile app quản lý tài chính cá nhân thông minh, tích hợp Firebase Authentication và Gemini AI để phân tích chi tiêu, giao tiếp REST API với backend Spring Boot.
+        </p>
+        <div style="display:flex;align-items:center;gap:8px;color:#64748b;font-size:0.8rem;margin-bottom:16px;">
+          <span>👥</span><span>5 thành viên</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px;">
+          <span class="tech-tag" style="background:rgba(6,182,212,0.1);color:#67e8f9;border-color:rgba(6,182,212,0.25);">Flutter</span><span class="tech-tag" style="background:rgba(6,182,212,0.1);color:#67e8f9;border-color:rgba(6,182,212,0.25);">Spring Boot</span><span class="tech-tag" style="background:rgba(6,182,212,0.1);color:#67e8f9;border-color:rgba(6,182,212,0.25);">PostgreSQL</span><span class="tech-tag" style="background:rgba(6,182,212,0.1);color:#67e8f9;border-color:rgba(6,182,212,0.25);">Firebase Auth</span><span class="tech-tag" style="background:rgba(6,182,212,0.1);color:#67e8f9;border-color:rgba(6,182,212,0.25);">Gemini AI</span><span class="tech-tag" style="background:rgba(6,182,212,0.1);color:#67e8f9;border-color:rgba(6,182,212,0.25);">REST API</span>
+        </div>
+        <a href="https://vutiendat.cloud" target="_blank" style="display:inline-flex;align-items:center;gap:8px;color:#67e8f9;font-size:0.875rem;text-decoration:none;font-weight:500;padding:8px 16px;background:rgba(6,182,212,0.1);border:1px solid rgba(6,182,212,0.2);border-radius:8px;transition:all 0.3s;" onmouseover="this.style.background='rgba(6,182,212,0.2)'" onmouseout="this.style.background='rgba(6,182,212,0.1)'">📱 vutiendat.cloud <span>→</span></a>
+      </div>
+
+      <!-- Project 3: Rental Car -->
+      <div class="project-card reveal visible" style="padding: 28px; animation-delay: 0.2s; transition-delay: 0.1s;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;">
+          <div style="width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,rgba(34,197,94,0.2),rgba(16,185,129,0.2));border:1px solid rgba(34,197,94,0.3);display:flex;align-items:center;justify-content:center;font-size:1.5rem;">🚗</div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span style="padding:4px 10px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.25);border-radius:999px;color:#86efac;font-size:0.75rem;font-weight:600;">Leader</span>
+            <span style="padding:4px 10px;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.25);border-radius:999px;color:#93c5fd;font-size:0.75rem;">2025</span>
+          </div>
+        </div>
+        <h3 style="font-weight:700;font-size:1.1rem;margin-bottom:10px;">Rental Car System</h3>
+        <p style="color:#64748b;font-size:0.875rem;line-height:1.7;margin-bottom:18px;">
+          Hệ thống đặt thuê xe ô tô trực tuyến với tích hợp bản đồ định vị, cổng thanh toán VNPay an toàn và giao diện người dùng thân thiện.
+        </p>
+        <div style="display:flex;align-items:center;gap:8px;color:#64748b;font-size:0.8rem;margin-bottom:16px;">
+          <span>👥</span><span>5 thành viên</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px;">
+          <span class="tech-tag" style="background:rgba(34,197,94,0.1);color:#86efac;border-color:rgba(34,197,94,0.25);">HTML/CSS/JS</span><span class="tech-tag" style="background:rgba(34,197,94,0.1);color:#86efac;border-color:rgba(34,197,94,0.25);">Java</span><span class="tech-tag" style="background:rgba(34,197,94,0.1);color:#86efac;border-color:rgba(34,197,94,0.25);">Map API</span><span class="tech-tag" style="background:rgba(34,197,94,0.1);color:#86efac;border-color:rgba(34,197,94,0.25);">VNPay</span>
+        </div>
+        <span style="display:inline-flex;align-items:center;gap:8px;color:#86efac;font-size:0.875rem;font-weight:500;padding:8px 16px;background:rgba(34,197,94,0.08);border:1px solid rgba(34,197,94,0.2);border-radius:8px;">🚗 Rental Car System</span>
+      </div>
+
+      <!-- Project 4: Fashion Shop -->
+      <div class="project-card reveal visible" style="padding: 28px; animation-delay: 0.3s; transition-delay: 0.2s;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:20px;">
+          <div style="width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,rgba(236,72,153,0.2),rgba(139,92,246,0.2));border:1px solid rgba(236,72,153,0.3);display:flex;align-items:center;justify-content:center;font-size:1.5rem;">👗</div>
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span style="padding:4px 10px;background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.25);border-radius:999px;color:#c4b5fd;font-size:0.75rem;font-weight:600;">Member</span>
+            <span style="padding:4px 10px;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.25);border-radius:999px;color:#93c5fd;font-size:0.75rem;">2025</span>
+          </div>
+        </div>
+        <h3 style="font-weight:700;font-size:1.1rem;margin-bottom:10px;">Fashion Shop</h3>
+        <p style="color:#64748b;font-size:0.875rem;line-height:1.7;margin-bottom:18px;">
+          Website thương mại điện tử thời trang đầy đủ tính năng: duyệt sản phẩm, giỏ hàng, tích hợp bản đồ giao hàng và thanh toán VNPay.
+        </p>
+        <div style="display:flex;align-items:center;gap:8px;color:#64748b;font-size:0.8rem;margin-bottom:16px;">
+          <span>👥</span><span>5 thành viên</span>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px;">
+          <span class="tech-tag" style="background:rgba(236,72,153,0.1);color:#f9a8d4;border-color:rgba(236,72,153,0.25);">HTML/CSS/JS</span><span class="tech-tag" style="background:rgba(236,72,153,0.1);color:#f9a8d4;border-color:rgba(236,72,153,0.25);">Java</span><span class="tech-tag" style="background:rgba(236,72,153,0.1);color:#f9a8d4;border-color:rgba(236,72,153,0.25);">Map API</span><span class="tech-tag" style="background:rgba(236,72,153,0.1);color:#f9a8d4;border-color:rgba(236,72,153,0.25);">VNPay</span>
+        </div>
+        <span style="display:inline-flex;align-items:center;gap:8px;color:#f9a8d4;font-size:0.875rem;font-weight:500;padding:8px 16px;background:rgba(236,72,153,0.08);border:1px solid rgba(236,72,153,0.2);border-radius:8px;">👗 Fashion Shop</span>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 60px; transition-delay: 0.3s;" class="reveal visible">
+      <div class="section-label" style="justify-content:center;margin-bottom:14px;">Kinh nghiệm</div>
+      <h2 style="font-size:clamp(1.8rem,3vw,2.8rem);font-weight:800;">Học vấn &amp; <span class="gradient-text">Hoạt động</span></h2>
+    </div>
+
+    <div style="position:relative;padding-left:60px;display:flex;flex-direction:column;gap:32px;">
+      <div class="timeline-line"></div>
+
+      <!-- FPT University -->
+      <div class="reveal visible" style="display: flex; gap: 20px; align-items: flex-start; transition-delay: 0s;">
+        <div class="timeline-dot" style="position:absolute;left:0;">🎓</div>
+        <div class="glass-card" style="border-radius:16px;padding:24px;flex:1;">
+          <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:14px;">
+            <div>
+              <h3 style="font-weight:700;font-size:1.05rem;">Công nghệ Thông tin</h3>
+              <p style="color:#93c5fd;font-size:0.875rem;margin-top:4px;">🏫 Đại học FPT Hà Nội</p>
+            </div>
+            <div style="text-align:right;">
+              <span style="padding:5px 12px;background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.25);border-radius:999px;color:#93c5fd;font-size:0.8rem;">2022 – 2025</span>
+              <div style="margin-top:8px;padding:5px 12px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.25);border-radius:999px;color:#86efac;font-size:0.8rem;text-align:center;">GPA: 3.2 / 4.0</div>
+            </div>
+          </div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+            <li style="display:flex;align-items:flex-start;gap:10px;color:#94a3b8;font-size:0.875rem;">
+              <span style="color:#fcd34d;margin-top:2px;">🏆</span>
+              <span>Đại diện trường tham gia <strong style="color:#e2e8f0;">ERPsim Year-End Cup EAST 2025</strong></span>
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:10px;color:#94a3b8;font-size:0.875rem;">
+              <span style="color:#fcd34d;margin-top:2px;">🏆</span>
+              <span>Đại diện trường tham gia <strong style="color:#e2e8f0;">ERPsim APAC CUP 2026</strong></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- FPT Software Academy -->
+      <div class="reveal visible" style="display: flex; gap: 20px; align-items: flex-start; transition-delay: 0.1s;">
+        <div class="timeline-dot" style="position:absolute;left:0;">💼</div>
+        <div class="glass-card" style="border-radius:16px;padding:24px;flex:1;">
+          <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:14px;">
+            <div>
+              <h3 style="font-weight:700;font-size:1.05rem;">Khóa học SAP ABAP</h3>
+              <p style="color:#fcd34d;font-size:0.875rem;margin-top:4px;">🏢 FPT Software Academy</p>
+            </div>
+            <span style="padding:5px 12px;background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.25);border-radius:999px;color:#fcd34d;font-size:0.8rem;">T7/2025 – T9/2025</span>
+          </div>
+          <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;">
+            <li style="display:flex;align-items:flex-start;gap:10px;color:#94a3b8;font-size:0.875rem;">
+              <span style="color:#22c55e;margin-top:2px;">✔</span>
+              <span>Trao đổi kiến thức SAP, học các module SD, MM, PP, CO, FI, WM</span>
+            </li>
+            <li style="display:flex;align-items:flex-start;gap:10px;color:#94a3b8;font-size:0.875rem;">
+              <span style="color:#22c55e;margin-top:2px;">✔</span>
+              <span>Lập trình SAP ABAP cơ bản và nâng cao, thực hành dự án thực tế</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATES -->
+<section id="certs" style="background:rgba(255,255,255,0.01);">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 60px; transition-delay: 0.2s;" class="reveal visible">
+      <div class="section-label" style="justify-content:center;margin-bottom:14px;">Thành tích</div>
+      <h2 style="font-size:clamp(1.8rem,3vw,2.8rem);font-weight:800;">Chứng chỉ <span class="gradient-text">Coursera</span></h2>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;">
+      
+        <div class="glass-card reveal visible" style="border-radius: 14px; padding: 20px; display: flex; align-items: center; gap: 14px; animation-delay: 0s; transition-delay: 0.3s;">
+          <div style="width:44px;height:44px;border-radius:12px;background:rgba(249,115,22,0.15);border:1px solid rgba(249,115,22,0.3);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;">🎨</div>
+          <div>
+            <p style="font-weight:600;font-size:0.875rem;line-height:1.4;">Web Design</p>
+            <p style="color:#64748b;font-size:0.75rem;margin-top:4px;display:flex;align-items:center;gap:4px;"><span style="color:#3b82f6;">✓</span> Coursera Specialization</p>
+          </div>
+        </div>
+      
+        <div class="glass-card reveal visible" style="border-radius: 14px; padding: 20px; display: flex; align-items: center; gap: 14px; animation-delay: 0.1s; transition-delay: 0s;">
+          <div style="width:44px;height:44px;border-radius:12px;background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;">⚙️</div>
+          <div>
+            <p style="font-weight:600;font-size:0.875rem;line-height:1.4;">Introduction to Software Engineering</p>
+            <p style="color:#64748b;font-size:0.75rem;margin-top:4px;display:flex;align-items:center;gap:4px;"><span style="color:#3b82f6;">✓</span> Coursera Specialization</p>
+          </div>
+        </div>
+      
+        <div class="glass-card reveal visible" style="border-radius: 14px; padding: 20px; display: flex; align-items: center; gap: 14px; animation-delay: 0.2s; transition-delay: 0.1s;">
+          <div style="width:44px;height:44px;border-radius:12px;background:rgba(139,92,246,0.15);border:1px solid rgba(139,92,246,0.3);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;">⚖️</div>
+          <div>
+            <p style="font-weight:600;font-size:0.875rem;line-height:1.4;">Ethics in IT</p>
+            <p style="color:#64748b;font-size:0.75rem;margin-top:4px;display:flex;align-items:center;gap:4px;"><span style="color:#3b82f6;">✓</span> Coursera Specialization</p>
+          </div>
+        </div>
+      
+        <div class="glass-card reveal visible" style="border-radius: 14px; padding: 20px; display: flex; align-items: center; gap: 14px; animation-delay: 0.3s; transition-delay: 0.2s;">
+          <div style="width:44px;height:44px;border-radius:12px;background:rgba(6,182,212,0.15);border:1px solid rgba(6,182,212,0.3);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;">📝</div>
+          <div>
+            <p style="font-weight:600;font-size:0.875rem;line-height:1.4;">Research Methods &amp; Academic Writing</p>
+            <p style="color:#64748b;font-size:0.75rem;margin-top:4px;display:flex;align-items:center;gap:4px;"><span style="color:#3b82f6;">✓</span> Coursera Specialization</p>
+          </div>
+        </div>
+      
+        <div class="glass-card reveal visible" style="border-radius: 14px; padding: 20px; display: flex; align-items: center; gap: 14px; animation-delay: 0.4s; transition-delay: 0.3s;">
+          <div style="width:44px;height:44px;border-radius:12px;background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;">📋</div>
+          <div>
+            <p style="font-weight:600;font-size:0.875rem;line-height:1.4;">Project Management</p>
+            <p style="color:#64748b;font-size:0.75rem;margin-top:4px;display:flex;align-items:center;gap:4px;"><span style="color:#3b82f6;">✓</span> Coursera Specialization</p>
+          </div>
+        </div>
+      
+        <div class="glass-card reveal visible" style="border-radius: 14px; padding: 20px; display: flex; align-items: center; gap: 14px; animation-delay: 0.5s; transition-delay: 0s;">
+          <div style="width:44px;height:44px;border-radius:12px;background:rgba(236,72,153,0.15);border:1px solid rgba(236,72,153,0.3);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;">🖌️</div>
+          <div>
+            <p style="font-weight:600;font-size:0.875rem;line-height:1.4;">UI/UX Design</p>
+            <p style="color:#64748b;font-size:0.75rem;margin-top:4px;display:flex;align-items:center;gap:4px;"><span style="color:#3b82f6;">✓</span> Coursera Specialization</p>
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 60px; transition-delay: 0.1s;" class="reveal visible">
+      <div class="section-label" style="justify-content:center;margin-bottom:14px;">Kết nối</div>
+      <h2 style="font-size:clamp(1.8rem,3vw,2.8rem);font-weight:800;">Liên hệ <span class="gradient-text">với tôi</span></h2>
+      <p style="color:#64748b;margin-top:14px;font-size:0.95rem;">Tôi luôn sẵn sàng cho các cơ hội mới và sự hợp tác thú vị!</p>
+    </div>
+    <div style="max-width: 600px; margin: 0px auto; display: flex; flex-direction: column; gap: 14px; transition-delay: 0.2s;" class="reveal visible">
+      <a href="mailto:vtdat271204@gmail.com" class="contact-link">
+        <div class="contact-icon" style="background:rgba(239,68,68,0.15);border:1px solid rgba(239,68,68,0.3);color:#fca5a5;">✉️</div>
+        <div>
+          <div style="font-weight:600;font-size:0.9rem;color:#e2e8f0;">Email</div>
+          <div style="color:#64748b;font-size:0.8rem;margin-top:2px;">vtdat271204@gmail.com</div>
+        </div>
+        <span style="margin-left:auto;color:#475569;">→</span>
+      </a>
+      <a href="tel:0379213484" class="contact-link">
+        <div class="contact-icon" style="background:rgba(34,197,94,0.15);border:1px solid rgba(34,197,94,0.3);color:#86efac;">📞</div>
+        <div>
+          <div style="font-weight:600;font-size:0.9rem;color:#e2e8f0;">Điện thoại</div>
+          <div style="color:#64748b;font-size:0.8rem;margin-top:2px;">0379 213 484</div>
+        </div>
+        <span style="margin-left:auto;color:#475569;">→</span>
+      </a>
+      <a href="https://github.com/DatVT04" target="_blank" class="contact-link">
+        <div class="contact-icon" style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.15);color:#e2e8f0;">🐙</div>
+        <div>
+          <div style="font-weight:600;font-size:0.9rem;color:#e2e8f0;">GitHub</div>
+          <div style="color:#64748b;font-size:0.8rem;margin-top:2px;">github.com/DatVT04</div>
+        </div>
+        <span style="margin-left:auto;color:#475569;">→</span>
+      </a>
+      <a href="https://www.facebook.com/vutiendat04/" target="_blank" class="contact-link">
+        <div class="contact-icon" style="background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);color:#93c5fd;">📘</div>
+        <div>
+          <div style="font-weight:600;font-size:0.9rem;color:#e2e8f0;">Facebook</div>
+          <div style="color:#64748b;font-size:0.8rem;margin-top:2px;">facebook.com/vutiendat04</div>
+        </div>
+        <span style="margin-left:auto;color:#475569;">→</span>
+      </a>
+      <div class="contact-link" style="cursor:default;">
+        <div class="contact-icon" style="background:rgba(234,179,8,0.15);border:1px solid rgba(234,179,8,0.3);color:#fde047;">📍</div>
+        <div>
+          <div style="font-weight:600;font-size:0.9rem;color:#e2e8f0;">Địa chỉ</div>
+          <div style="color:#64748b;font-size:0.8rem;margin-top:2px;">Hà Nội, Việt Nam</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer style="border-top:1px solid rgba(255,255,255,0.06);padding:32px 0;text-align:center;">
+  <div class="container">
+    <div style="font-size:1.5rem;font-weight:900;" class="gradient-text">Vũ Tiến Đạt</div>
+    <p style="color:#475569;font-size:0.8rem;margin-top:8px;">Sinh viên CNTT · ĐH FPT Hà Nội · 2022–2025</p>
+    <p style="color:#334155;font-size:0.75rem;margin-top:16px;">© 2026 Vũ Tiến Đạt. Built with ❤️ using React + Vite + Tailwind CSS</p>
+  </div>
+</footer>
+</body><div id="eJOY__extension_ai_adv_root" class="eJOY__extension_ai_adv_root_class"><div class="wrapperAiAssEjoy "><div class="containerSumEjoyIcon "><div class="viewIconEjoy gl-tooltip-ejoy gl-tooltip-ejoy-left" tooltip-data="eJOY AI Assistant"><div class="viewIconEjoyItem"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="26" viewBox="0 0 24 26" fill="none"><mask id="mask0_427_34" maskUnits="userSpaceOnUse" x="16" y="3" width="8" height="8" style="mask-type: luminance;"><path d="M24 3H16V11H24V3Z" fill="white"></path></mask><g mask="url(#mask0_427_34)"><path d="M23.8012 7.00309L21.0136 8.01539L20.0012 10.8031L18.9889 8.01539L16.2012 7.00309L18.9889 5.9908L20.0012 3.20309L21.0136 5.9908L23.8012 7.00309Z" fill="url(#paint0_linear_427_34)"></path></g><mask id="mask1_427_34" maskUnits="userSpaceOnUse" x="0" y="10" width="6" height="6" style="mask-type: luminance;"><path d="M6 10H0V16H6V10Z" fill="white"></path></mask><g mask="url(#mask1_427_34)"><path d="M5.8494 13.0023L3.7587 13.7616L2.9994 15.8523L2.2402 13.7616L0.149399 13.0023L2.2402 12.2431L2.9994 10.1523L3.7587 12.2431L5.8494 13.0023Z" fill="url(#paint1_linear_427_34)"></path></g><mask id="mask2_427_34" maskUnits="userSpaceOnUse" x="16" y="20" width="4" height="4" style="mask-type: luminance;"><path d="M20 20H16V24H20V20Z" fill="white"></path></mask><g mask="url(#mask2_427_34)"><path d="M19.8996 22.0016L18.5058 22.5077L17.9996 23.9016L17.4934 22.5077L16.0996 22.0016L17.4934 21.4954L17.9996 20.1016L18.5058 21.4954L19.8996 22.0016Z" fill="url(#paint2_linear_427_34)"></path></g><g filter="url(#filter0_d_427_34)"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.8671 20.3327C14.8098 20.2537 16.4674 18.0538 16.368 15.5257C15.9553 11.8147 11.5502 10.6201 13.3135 5.666C9.7712 8.7188 7.228 12.6272 7.3363 15.408C7.3847 18.1053 8.9455 20.3327 11.8671 20.3327ZM14.5512 16.5696C15.0045 16.5696 15.3306 16.2001 15.3719 15.7489C15.4799 15.431 15.3719 13.9738 14.2947 13.0395C14.4695 14.2529 13.6329 15.261 13.7305 15.7489C13.7305 16.2022 14.0979 16.5696 14.5512 16.5696Z" fill="#1DA1F2"></path></g><defs><filter id="filter0_d_427_34" x="2.47583" y="0.80886" width="18.7535" height="24.381" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB"><feFlood flood-opacity="0" result="BackgroundImageFix"></feFlood><feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"></feColorMatrix><feOffset></feOffset><feGaussianBlur stdDeviation="2.42857"></feGaussianBlur><feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.12 0"></feColorMatrix><feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_427_34"></feBlend><feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_427_34" result="shape"></feBlend></filter><linearGradient id="paint0_linear_427_34" x1="20.0012" y1="3.20309" x2="20.0012" y2="10.8031" gradientUnits="userSpaceOnUse"><stop stop-color="#1DA1F2"></stop><stop offset="1" stop-color="#6CD2FF"></stop></linearGradient><linearGradient id="paint1_linear_427_34" x1="2.9994" y1="10.1523" x2="2.9994" y2="15.8523" gradientUnits="userSpaceOnUse"><stop stop-color="#1DA1F2"></stop><stop offset="1" stop-color="#6CD2FF"></stop></linearGradient><linearGradient id="paint2_linear_427_34" x1="17.9996" y1="20.1016" x2="17.9996" y2="23.9016" gradientUnits="userSpaceOnUse"><stop stop-color="#1DA1F2"></stop><stop offset="1" stop-color="#6CD2FF"></stop></linearGradient></defs></svg></div><div class="moveIconEjoyAi"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M5.45139 0.667969C4.64931 0.667969 4 1.31727 4 2.11936C4 2.92144 4.64931 3.57075 5.45139 3.57075C6.25347 3.57075 6.90278 2.92144 6.90278 2.11936C6.90278 1.31727 6.25347 0.667969 5.45139 0.667969ZM4 8.00868C4 7.2066 4.64931 6.55729 5.45139 6.55729C6.25347 6.55729 6.90278 7.2066 6.90278 8.00868C6.90278 8.81076 6.25347 9.46007 5.45139 9.46007C4.64931 9.46007 4 8.81076 4 8.00868ZM4 13.8837C4 13.0816 4.64931 12.4323 5.45139 12.4323C6.25347 12.4323 6.90278 13.0816 6.90278 13.8837C6.90278 14.6858 6.25347 15.3351 5.45139 15.3351C4.64931 15.3351 4 14.6858 4 13.8837Z" fill="#666666"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M10.7854 0.667969C9.98329 0.667969 9.33398 1.31727 9.33398 2.11936C9.33398 2.92144 9.98329 3.57075 10.7854 3.57075C11.5875 3.57075 12.2368 2.92144 12.2368 2.11936C12.2368 1.31727 11.5875 0.667969 10.7854 0.667969ZM9.33398 8.00868C9.33398 7.2066 9.98329 6.55729 10.7854 6.55729C11.5875 6.55729 12.2368 7.2066 12.2368 8.00868C12.2368 8.81076 11.5875 9.46007 10.7854 9.46007C9.98329 9.46007 9.33398 8.81076 9.33398 8.00868ZM9.33398 13.8837C9.33398 13.0816 9.98329 12.4323 10.7854 12.4323C11.5875 12.4323 12.2368 13.0816 12.2368 13.8837C12.2368 14.6858 11.5875 15.3351 10.7854 15.3351C9.98329 15.3351 9.33398 14.6858 9.33398 13.8837Z" fill="#666666"></path></svg></div></div><div class="viewCloseIconEjoy"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="6" fill="black" fill-opacity="0.25"></circle><path fill-rule="evenodd" clip-rule="evenodd" d="M8.71289 3.58672C8.87135 3.74518 8.87135 4.00209 8.71289 4.16054L6.72363 6.14981L8.71289 8.13907C8.87135 8.29752 8.87135 8.55444 8.71289 8.71289C8.55444 8.87135 8.29752 8.87135 8.13907 8.71289L6.14981 6.72363L4.16054 8.71289C4.00209 8.87135 3.74518 8.87135 3.58672 8.71289C3.42826 8.55443 3.42826 8.29752 3.58672 8.13907L5.57598 6.14981L3.58672 4.16054C3.42826 4.00209 3.42826 3.74518 3.58672 3.58672C3.74518 3.42826 4.00209 3.42826 4.16054 3.58672L6.14981 5.57598L8.13907 3.58672C8.29752 3.42826 8.55444 3.42826 8.71289 3.58672Z" fill="white"></path></svg></div></div><div class="eJOY__container eJOY__container_scroll  "><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding-left: 12px;"><div><div style="border-radius: 3px; padding: 4px 8px; color: rgb(255, 255, 255); font-size: 12px; font-style: normal; font-weight: 400; line-height: 12px; background: rgba(29, 161, 242, 0.65);">Beta</div></div><div style="display: flex; justify-content: center; padding-right: 12px; flex-direction: column;"><span style="color: rgb(229, 56, 56); font-size: 10px; font-style: normal; font-weight: 600; line-height: 12px; padding-bottom: 1px;">0 / 0</span><span style="color: rgb(140, 140, 140); font-size: 8px; font-style: normal; font-weight: 400; line-height: 10px;">used queries</span></div></div></div></div></div><div id="eJOY__extension_root" class="eJOY__extension_root_class" style="all: unset;"></div>
+</html>
